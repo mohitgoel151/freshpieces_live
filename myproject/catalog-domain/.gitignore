@@ -1,1 +1,22 @@
-/target/
+/target
+target/
+.reviewboardrc
+/.git
+/.metadata
+/*/.project
+/.project
+/*/.classpath
+/*/target
+/*/.settings
+/*/bin
+/.project
+/*/*.classpath
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+.settings/
+.loadpath
+# Eclipse Core
+.project
