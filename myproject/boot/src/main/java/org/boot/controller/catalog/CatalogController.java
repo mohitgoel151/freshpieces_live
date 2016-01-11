@@ -1,68 +1,63 @@
 package org.boot.controller.catalog;
 
-import org.catalog.domain.ProductImpl;
-import org.catalog.domain.Todo;
-import org.catalog.domain.dto.TodoDTO;
-import org.catalog.service.impl.CatalogServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.MediaType;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.catalog.domain.common.Category;
+import org.catalog.domain.product.Product;
+import org.catalog.domain.product.ProductDTO;
+import org.common.domain.response.ApiResponse;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-@ComponentScan({"org.catalog", "org.catalog.repo"})
-@RestController
-@RequestMapping("product/")
-public class CatalogController {
+@RequestMapping(value = "catalog/", produces = "application/json")
+public interface CatalogController {
 
-    @Autowired
-    private CatalogServiceImpl catalogService;
+    // Product related apis
+    @RequestMapping(value = "products", method = RequestMethod.GET)
+    public List<Product> findAllProducts(
+            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset);
 
-    @RequestMapping(value = "id/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ProductImpl getProductById(@PathVariable("id") String id) {
-        ProductImpl prod = (ProductImpl) catalogService.getProductById(id);
-        return prod;
-    }
+    @RequestMapping(value = "products/id/{id}", method = RequestMethod.GET)
+    public ApiResponse<ProductDTO> getProductById(
+            @PathVariable("idValue") String id, HttpServletResponse response)
+            throws Exception;
 
-    @RequestMapping(value = "name/{name}", method = RequestMethod.GET)
-    public ProductImpl getProductByName(@PathVariable("name") String productName) {
-        ProductImpl prod = (ProductImpl) catalogService.getProductByName(productName);
-        return prod;
-    }
+    @RequestMapping(value = "products/name/{name}", method = RequestMethod.GET)
+    public ProductDTO getProductByName(@PathVariable("name") String productName);
 
-    @RequestMapping(value = "add", method = RequestMethod.POST, consumes = "application/json")
-    public String addProduct(@RequestBody ProductImpl newProduct) {
-        //check by product service if it exists
-        //if not create
-        return "added";
-    }
+    @RequestMapping(value = "products/similar/id/{id}", method = RequestMethod.GET)
+    public List<ProductDTO> getSimilarProductsById(
+            @PathVariable("id") String id,
+            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset);
+
+    @RequestMapping(value = "products/similar/name/{name}", method = RequestMethod.GET)
+    public List<Product> getSimilarProductsByName(
+            @PathVariable("name") String searchName,
+            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset);
+
+    // Category related apis
+    @RequestMapping(value = "catagories", method = RequestMethod.GET)
+    public List<Category> findAllCategories();
+
+    @RequestMapping(value = "catagories/{name}/products", method = RequestMethod.GET)
+    public List<Product> findProductsForCategory(
+            @PathVariable("name") String categoryName,
+            @RequestParam(value = "limit", required = false, defaultValue = "10") int limit,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset);
+
+    // Featured Product
+    @RequestMapping(value = "products/featured/week", method = RequestMethod.GET)
+    public List<ProductDTO> getFeaturedProductsOfTheWeek();
+    //      @RequestParam(value = "filter", required = false, defaultValue = "non-veg") String filter)
     
-    @RequestMapping(value = "update/{name}", method = RequestMethod.PUT)
-    public String updateProduct(@PathVariable("name") String productName, @RequestBody ProductImpl newProduct) {
-        
-        return "updated";
-    }
-    
-    @RequestMapping(value = "delete/{name}", method = RequestMethod.PUT)
-    public String deleteProduct(@PathVariable("name") String productName) {
-        
-        return "deleted";
-    }
-    
-    
-    @RequestMapping(value = "todo/create", method = RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
-    public TodoDTO createTODO(@RequestBody TodoDTO todo) {
-        TodoDTO a = catalogService.create(todo);
-        return a;
-    }
-    
-    @RequestMapping(value = "todo/{id}", method = RequestMethod.GET)
-    public TodoDTO createTODO(@PathVariable("id") String id) {
-        TodoDTO a = catalogService.findById(id);
-        return a;
-    }
+    @RequestMapping(value = "products/featured/day", method = RequestMethod.GET)
+    public List<ProductDTO> getFeaturedProductsOfTheDay();
+    //      @RequestParam(value = "filter", required = false, defaultValue = "non-veg") String filter)
 }

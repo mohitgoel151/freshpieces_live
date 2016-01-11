@@ -2,7 +2,7 @@ package org.catalog.domain.dto;
 
 import javax.validation.constraints.Size;
 
-import org.catalog.domain.Todo;
+import org.catalog.domain.product.Todo;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class TodoDTO {

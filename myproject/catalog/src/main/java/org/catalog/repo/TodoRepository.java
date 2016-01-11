@@ -2,7 +2,7 @@ package org.catalog.repo;
 
 import java.util.List;
 
-import org.catalog.domain.Todo;
+import org.catalog.domain.product.Todo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 //import org.springframework.data.rest.core.annotation.RepositoryRestResource;

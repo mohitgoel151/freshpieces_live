@@ -88,6 +88,7 @@
 		<module>login-domain</module>
     <module>customers</module>
     <module>customers-domain</module>
+    <module>common-domain</module>
   </modules>
 
 </project>

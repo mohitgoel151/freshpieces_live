@@ -1,99 +1,62 @@
 package org.catalog.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.catalog.domain.Product;
-import org.catalog.domain.ProductImpl;
-import org.catalog.domain.Todo;
+import org.catalog.cache.service.CatalogCacheService;
+import org.catalog.db.service.CatalogDbService;
 import org.catalog.domain.common.Category;
 import org.catalog.domain.dto.TodoDTO;
+import org.catalog.domain.product.Product;
+import org.catalog.domain.product.ProductDTO;
+import org.catalog.domain.product.Todo;
 import org.catalog.repo.TodoRepository;
 import org.catalog.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 //import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
-//@ComponentScan("org.catalog.repo")
 @Service
 public class CatalogServiceImpl implements CatalogService {
     
     @Autowired
+    private CatalogCacheService cacheService;
+    
+    @Autowired
+    private CatalogDbService dbService;
+    
+    @Autowired
     private TodoRepository repository;
     
-//    @Autowired
-//    private MongoRepository<Todo, String> repository;
-    
-//    @Autowired
-//    CatalogServiceImpl(TodoRepository repository) {
-//        this.repository = repository;
-//    }
-
     @Override
-    public ProductImpl getProductById(String id) {
-        ProductImpl product = new ProductImpl();
+    public ProductDTO getProductById(String id) {
+        ProductDTO product = new ProductDTO();
         product.setId(id);
         return product;
     }
 
     @Override
-    public ProductImpl getProductByName(String productName) {
-        ProductImpl product = new ProductImpl();
+    public ProductDTO getProductByName(String productName) {
+        ProductDTO product = new ProductDTO();
         product.setTitle(productName);
         return product;
     }
 
-    @Override
-    public boolean addProductToCatalog(Product product) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
     @Override
-    public boolean removeProductFromCatalog(Product product) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public Product updateProduct(Product product) {
+    public List<Product> getSimilarProductsById(String searchName, int limit, int offset) {
         // TODO Auto-generated method stub
         return null;
     }
 
+
+
     @Override
-    public List<Product> getSimilarProductsById(String id) {
+    public List<Product> getSimilarProductsByName(String searchName, int limit, int offset) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
-    public List<Product> getSimilarProductsById(String searchName, int limit,
-            int offset) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    @Override
-    public List<Product> getSimilarProductsByName(String productName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<Product> getSimilarProductsByName(String searchName, int limit,
-            int offset) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<Product> getSimilarProductsByCategory(Category category,
-            int limit, int offset) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public List<Category> findAllCategories() {
@@ -101,17 +64,7 @@ public class CatalogServiceImpl implements CatalogService {
         return null;
     }
 
-    @Override
-    public List<Category> findAllCategories(int limit, int offset) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    @Override
-    public List<Product> findAllProducts() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public List<Product> findAllProducts(int limit, int offset) {
@@ -119,15 +72,10 @@ public class CatalogServiceImpl implements CatalogService {
         return null;
     }
 
-    @Override
-    public List<Product> findProductsForCategory(Category category) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+
 
     @Override
-    public List<Product> findProductsForCategory(Category category, int limit,
-            int offset) {
+    public List<Product> findProductsForCategory(Category category, int limit, int offset) {
         // TODO Auto-generated method stub
         return null;
     }

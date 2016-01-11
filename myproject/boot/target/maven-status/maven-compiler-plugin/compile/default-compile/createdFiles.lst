@@ -1,9 +1,0 @@
-org/boot/App.class
-org/boot/interceptors/LoggingInterceptor.class
-org/boot/config/AppConfig.class
-org/boot/config/DBConfig.class
-org/boot/config/ServletConfig.class
-org/boot/config/QueueConfig.class
-org/boot/controller/catalog/CatalogController.class
-org/boot/config/CacheConfig.class
-org/boot/controller/login/LoginController.class

@@ -1,0 +1,6 @@
+/target/
+/.git
+/.metadat
+/*/target
+/*/.settings
+.project

@@ -29,6 +29,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoggingInterceptor());
+        System.out.println("registry.addInterceptor(new LoggingInterceptor())");
         // registry.addInterceptor(new TransactionInterceptor()).addPathPatterns("/person/save/*");
     }
 }
