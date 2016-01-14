@@ -20,3 +20,4 @@ tmp/
 .loadpath
 # Eclipse Core
 .project
+/target/

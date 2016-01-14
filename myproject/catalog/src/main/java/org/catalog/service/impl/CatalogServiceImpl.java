@@ -7,10 +7,12 @@ import org.catalog.db.service.CatalogDbService;
 import org.catalog.domain.common.Category;
 import org.catalog.domain.dto.TodoDTO;
 import org.catalog.domain.product.Product;
+import org.catalog.domain.product.ProductDAO;
 import org.catalog.domain.product.ProductDTO;
 import org.catalog.domain.product.Todo;
 import org.catalog.repo.TodoRepository;
 import org.catalog.service.CatalogService;
+import org.catalog.service.convertor.DataConverterService;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
@@ -25,13 +27,32 @@ public class CatalogServiceImpl implements CatalogService {
     private CatalogDbService dbService;
     
     @Autowired
+    private DataConverterService convertorService;
+    
+    //TODO remove TODO repo from here
+    @Autowired
     private TodoRepository repository;
     
     @Override
     public ProductDTO getProductById(String id) {
-        ProductDTO product = new ProductDTO();
-        product.setId(id);
-        return product;
+        
+        ProductDTO resultProduct = cacheService.getProductDTOById(id);
+        
+        if(resultProduct == null) {
+            ProductDAO dao = dbService.getProductById(id);
+            
+            if(dao != null) {
+                String daoId = dao.getId();
+                //get various attributes like price, offers etc from different db for this product id
+                
+                
+                cacheService.save(dao);
+                //similarly save all attributes in cache
+            }
+            resultProduct = convertorService.convertToProductDTO(dao);
+        }
+
+        return resultProduct;
     }
 
     @Override

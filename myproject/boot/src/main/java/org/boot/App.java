@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  *
  */
 @SpringBootApplication
-@ComponentScan({"org.boot.controller", "org.catalog.service", "org.customers.service"})
+@ComponentScan({"org.boot.config", "org.boot.controller", "org.catalog.service", "org.customers.service"})
 @EnableMongoRepositories({"org.catalog.repo", "org.customers.repo"})
 public class App {
     

@@ -1,7 +1,9 @@
 package org.catalog.db.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.catalog.db.service.CatalogDbService;
 import org.catalog.domain.category.CategoryDAO;
 import org.catalog.domain.product.ProductDAO;
@@ -45,8 +47,32 @@ public class CatalogDbServiceImpl implements CatalogDbService {
 
     @Override
     public ProductDAO getProductById(String id) {
-        // TODO Auto-generated method stub
-        return null;
+        ProductDAO dao = null;
+        
+        if(StringUtils.isBlank(id)) {
+            return null;
+        }
+        
+        dao = productRepository.findOne(id);
+        if(dao == null) {
+            dao = dummy(id);
+        }
+        
+        return dao;
+    }
+    
+    private ProductDAO dummy(String id) {
+        ProductDAO sample = new ProductDAO();
+        sample.setId(id);
+        sample.setAsin(id);
+        sample.setParentAsin(String.valueOf(System.currentTimeMillis()));
+        sample.setCreated(new Date());
+        sample.setLastUpdated(new Date());
+        sample.setLabel("myLabel");
+        
+        productRepository.save(sample);
+        
+        return productRepository.findOne(id);
     }
 
     @Override

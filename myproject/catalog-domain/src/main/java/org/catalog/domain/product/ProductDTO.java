@@ -5,12 +5,15 @@ import java.util.List;
 import org.catalog.domain.common.Category;
 import org.catalog.domain.common.Feature;
 import org.catalog.domain.common.ImageSet;
+import org.catalog.domain.common.Multimedia;
 import org.catalog.domain.common.Offers;
 import org.catalog.domain.common.PhysicalProperties;
 import org.catalog.domain.common.Price;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-//@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ProductDTO extends Product {
 	
  // private List<SimilarProduct> similarProducts;
@@ -19,22 +22,18 @@ public class ProductDTO extends Product {
     private boolean isOnSale;
     private int quantityAvailable;
     
-    private String title;
-    private String label;
-    private String model; 
-    private String brand;
-    
+
     private String productGroup;
     private String productTypeName;
     private int packageQuantity;
     
     
-    private PhysicalProperties physicalProperties;
+    
     private Price price;
     private List<Offers> offers;
     private List<Category> categories;
     
-    private List<ImageSet> imageSets;
+
     
 	public boolean isAvailable() {
         return isAvailable;
@@ -68,38 +67,6 @@ public class ProductDTO extends Product {
         this.quantityAvailable = quantityAvailable;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public String getProductGroup() {
         return productGroup;
     }
@@ -122,14 +89,6 @@ public class ProductDTO extends Product {
 
     public void setPackageQuantity(int packageQuantity) {
         this.packageQuantity = packageQuantity;
-    }
-
-    public PhysicalProperties getPhysicalProperties() {
-        return physicalProperties;
-    }
-
-    public void setPhysicalProperties(PhysicalProperties physicalProperties) {
-        this.physicalProperties = physicalProperties;
     }
 
     public Price getPrice() {
@@ -156,16 +115,6 @@ public class ProductDTO extends Product {
         this.categories = categories;
     }
 
-    public List<ImageSet> getImageSets() {
-        return imageSets;
-    }
-
-    public void setImageSets(List<ImageSet> imageSets) {
-        this.imageSets = imageSets;
-    }
-
-
-	
 
 
 }
